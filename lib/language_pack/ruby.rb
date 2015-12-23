@@ -603,14 +603,18 @@ WARNING
           instrument "ruby.bundle_clean" do
             # Only show bundle clean output when not using default cache
             if load_default_cache?
+              puts "load_default_cache? == true"
               run("#{bundle_bin} clean > /dev/null", user_env: true)
             else
+              puts "load_default_cache? == false"
               pipe("#{bundle_bin} clean", out: "2> /dev/null", user_env: true)
             end
           end
+          puts "@bundler_cache.store"
           @bundler_cache.store
 
           # Keep gem cache out of the slug
+          puts 'FileUtils.rm_rf("#{slug_vendor_base}/cache")'
           FileUtils.rm_rf("#{slug_vendor_base}/cache")
         else
           log "bundle", :status => "failure"
@@ -627,6 +631,7 @@ ERROR
 
           error error_message
         end
+        puts "end of build_bundler"
       end
     end
   end
