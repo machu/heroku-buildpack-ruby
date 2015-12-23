@@ -64,8 +64,7 @@ module LanguagePack
     # @option options [Hash] :env explicit environment to run command in
     # @option options [Boolean] :user_env whether or not a user's environment variables will be loaded
     def run(command, options = {})
-      puts "#{command} #{options}"
-      puts command_options_to_string(command, options)
+      puts "RUN: #{command_options_to_string(command, options)}"
       %x{ #{command_options_to_string(command, options)} }
     end
 
@@ -89,6 +88,7 @@ module LanguagePack
     # @param [String] command to be run
     def pipe(command, options = {})
       output = ""
+      puts "PIPE: #{command_options_to_string(command, options)}"
       IO.popen(command_options_to_string(command, options)) do |io|
         until io.eof?
           buffer = io.gets
