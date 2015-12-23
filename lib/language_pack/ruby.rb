@@ -607,7 +607,8 @@ WARNING
               run("#{bundle_bin} clean > /dev/null", user_env: true)
             else
               puts "load_default_cache? == false"
-              pipe("#{bundle_bin} clean", out: "2> /dev/null", user_env: true)
+              run("#{bundle_bin} clean", user_env: true)
+              # pipe("#{bundle_bin} clean", out: "2> /dev/null", user_env: true)
             end
           end
           puts "@bundler_cache.store"
